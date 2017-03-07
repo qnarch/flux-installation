@@ -5,6 +5,9 @@
  * based on code by Rickard Andersson copyright (C) 2002-2008 PunBB
  * License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
+ 
+//Includes
+require 'quotes-randomizer/quotes-generator.php';
 
 // Make sure no one attempts to run this script "directly"
 if (!defined('PUN'))
@@ -181,9 +184,11 @@ $tpl_main = str_replace('<pun_page>', htmlspecialchars(basename($_SERVER['SCRIPT
 $tpl_main = str_replace('<pun_title>', '<h1><a href="index.php">'.pun_htmlspecialchars($pun_config['o_board_title']).'</a></h1>', $tpl_main);
 // END SUBST - <pun_title>
 
+// define random quote
+$quote = ret_rand_quote();
 
 // START SUBST - <pun_desc>
-$tpl_main = str_replace('<pun_desc>', '<div id="brddesc">'.$pun_config['o_board_desc'].'</div>', $tpl_main);
+$tpl_main = str_replace('<pun_desc>', '<div id="brddesc">'.$quote.'</div>', $tpl_main);
 // END SUBST - <pun_desc>
 
 
