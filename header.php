@@ -5,7 +5,7 @@
  * based on code by Rickard Andersson copyright (C) 2002-2008 PunBB
  * License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
- 
+
 //Includes
 require 'quotes-randomizer/quotes-generator.php';
 
@@ -61,10 +61,10 @@ foreach ($pun_includes as $cur_include)
 	ob_start();
 
 	$file_info = pathinfo($cur_include[1]);
-	
+
 	if (!in_array($file_info['extension'], array('php', 'php4', 'php5', 'inc', 'html', 'txt'))) // Allow some extensions
 		error(sprintf($lang_common['Pun include extension'], pun_htmlspecialchars($cur_include[0]), basename($tpl_file), pun_htmlspecialchars($file_info['extension'])));
-		
+
 	if (strpos($file_info['dirname'], '..') !== false) // Don't allow directory traversal
 		error(sprintf($lang_common['Pun include directory'], pun_htmlspecialchars($cur_include[0]), basename($tpl_file)));
 
@@ -187,10 +187,11 @@ $tpl_main = str_replace('<pun_title>', '<h1><a href="index.php">'.pun_htmlspecia
 // define random quote
 $quote = ret_rand_quote();
 
-// START SUBST - <pun_desc>
-$tpl_main = str_replace('<pun_desc>', '<div id="brddesc">'.$quote.'</div>', $tpl_main);
-// END SUBST - <pun_desc>
-
+if (!$pun_user['is_guest']) {
+  // START SUBST - <pun_desc>
+  $tpl_main = str_replace('<pun_desc>', '<div id="brddesc">'.$quote.'</div>', $tpl_main);
+  // END SUBST - <pun_desc>
+}
 
 // START SUBST - <pun_navlinks>
 $links = array();
@@ -201,8 +202,7 @@ $links[] = '<li id="navindex"'.((PUN_ACTIVE_PAGE == 'index') ? ' class="isactive
 if ($pun_user['g_read_board'] == '1' && $pun_user['g_view_users'] == '1')
 	$links[] = '<li id="navuserlist"'.((PUN_ACTIVE_PAGE == 'userlist') ? ' class="isactive"' : '').'><a href="userlist.php">'.$lang_common['User list'].'</a></li>';
 
-if ($pun_config['o_rules'] == '1' && (!$pun_user['is_guest'] || $pun_user['g_read_board'] == '1' || $pun_config['o_regs_allow'] == '1'))
-	$links[] = '<li id="navrules"'.((PUN_ACTIVE_PAGE == 'rules') ? ' class="isactive"' : '').'><a href="misc.php?action=rules">'.$lang_common['Rules'].'</a></li>';
+if ($pun_config['o_rules'] == '1' && (!$pun_user['is_guest'] || $pun_user['g_read_board'] == '1' || $pun_config['o_regs_allow'] == '1')) $links[] = '<li id="navrules"'.((PUN_ACTIVE_PAGE == 'rules') ? ' class="isactive"' : '').'><a href="misc.php?action=rules">'.$lang_common['Rules'].'</a></li>';
 
 if ($pun_user['g_read_board'] == '1' && $pun_user['g_search'] == '1')
 	$links[] = '<li id="navsearch"'.((PUN_ACTIVE_PAGE == 'search') ? ' class="isactive"' : '').'><a href="search.php">'.$lang_common['Search'].'</a></li>';
