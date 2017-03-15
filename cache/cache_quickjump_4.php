@@ -12,7 +12,8 @@ $forum_id = isset($forum_id) ? $forum_id : 0;
 							<option value="1"<?php echo ($forum_id == 1) ? ' selected="selected"' : '' ?>>Scheman och servrar</option>
 						</optgroup>
 						<optgroup label="Qñarch Dev">
-							<option value="3"<?php echo ($forum_id == 3) ? ' selected="selected"' : '' ?>>Dev</option>
+							<option value="3"<?php echo ($forum_id == 3) ? ' selected="selected"' : '' ?>>Qñarch.nu Dev</option>
+							<option value="6"<?php echo ($forum_id == 6) ? ' selected="selected"' : '' ?>>Övrig utveckling</option>
 						</optgroup>
 						<optgroup label="Qñarch Off Topic">
 							<option value="2"<?php echo ($forum_id == 2) ? ' selected="selected"' : '' ?>>Bullshittery</option>
